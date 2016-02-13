@@ -25,7 +25,8 @@ public class ParkingLotTest {
         //when
         //then
     }
-    
+
+    @Test
     public void itShouldParkCarWhenTheLotHasFreeSpace(){
         //given
         int INITIAL_SPACE=4;
