@@ -1,5 +1,7 @@
 package com.aniruddha.parkinglot;
 
+import com.aniruddha.owner.ParkingLotOwner;
+import com.aniruddha.parkinglotObserver.ParkingLotObserver;
 import junit.framework.Assert;
 import org.junit.Test;
 
@@ -103,5 +105,20 @@ public class ParkingLotTest {
         lot.unparkCar(new Car("XYZ244"));
         lot.unparkCar(new Car("ZZZ324"));
         //then
+    }
+
+    public void itShouldTellTheOwnerWhenTheLotIsFull() {
+        //given
+        ParkingLot lot = new ParkingLot(4);
+        lot.parkCar(new Car("XYZ244"));
+        lot.parkCar(new Car("ABC124"));
+        lot.parkCar(new Car("ABC123"));
+        lot.parkCar(new Car("ABC128"));
+
+        //when
+        ParkingLotObserver owner = new ParkingLotOwner();
+        lot.registerObserver(owner);
+        //then
+        Assert.assertTrue(owner.isFullSignBoardSet());
     }
 }
