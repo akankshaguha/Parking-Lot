@@ -4,35 +4,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Aniruddha Sinha on 12-02-2016.
+ * Created by Aniruddha Sinha on 13-02-2016.
  */
 public class ParkingLot {
     private int freeSpace;
-    private List<Car> lot;
+    private List<Car> list;
 
-    public ParkingLot(int allocatedFreeSpace) {
-        if(allocatedFreeSpace==0) throw new NullLotCreatedException();
-        this.freeSpace=allocatedFreeSpace;
-        lot=new ArrayList<Car>();
-    }
-
-    public boolean hasFreeSpace() {
-        return this.freeSpace==0;
-    }
-
-    public void parkCar(Car car) {
-        if(hasFreeSpace()){
-            lot.add(car);
-            decrementFreeSpaceByOne();
+    public ParkingLot(int i) {
+        if (i == 0) throw new NullLotCreatedException();
+        else {
+            this.freeSpace = i;
+            list = new ArrayList<Car>();
         }
     }
 
-    private void decrementFreeSpaceByOne() {
-        this.freeSpace--;
+    public boolean isFreeSpaceAvailable() {
+        return this.freeSpace != 0;
     }
 
+    public void parkCar(Car car) {
+        if (this.isFreeSpaceAvailable()) {
+            list.add(car);
+            freeSpace--;
+        }
+    }
 
-    public int getFreeSpaceStatus() {
+    public int getFreeSpace() {
         return this.freeSpace;
+    }
+
+    protected class NullLotCreatedException extends RuntimeException {
     }
 }
