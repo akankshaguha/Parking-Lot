@@ -34,6 +34,13 @@ public class ParkingLot {
         return this.freeSpace;
     }
 
+    public void unparkCar(Car car) {
+        if (list.contains(car)) {
+            list.remove(car);
+            freeSpace++;
+        } else throw new AttemptToUnparkUnavailableCarException();
+    }
+
     protected class NullLotCreatedException extends RuntimeException {
     }
 
@@ -41,5 +48,8 @@ public class ParkingLot {
     }
 
     protected class DuplicateCarParkedException extends RuntimeException {
+    }
+
+    protected class AttemptToUnparkUnavailableCarException extends RuntimeException {
     }
 }

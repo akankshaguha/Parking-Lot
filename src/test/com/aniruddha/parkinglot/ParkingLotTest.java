@@ -70,4 +70,38 @@ public class ParkingLotTest {
                                          which indicates that the car has not been parked*/
         //then
     }
+
+    @Test
+    public void itShouldUnparkACarAndFreeTheLot() {
+        //given
+        int INITIAL_FREE_SPACE = 4;
+        ParkingLot lot = new ParkingLot(INITIAL_FREE_SPACE);
+        lot.parkCar(new Car("XYZ244"));
+        lot.parkCar(new Car("ABC124"));
+        lot.parkCar(new Car("ABC123"));
+        lot.parkCar(new Car("ABC125"));
+        int AVAILABLE_FREE_SPACE = lot.getFreeSpace();
+        //when
+        Assert.assertTrue(INITIAL_FREE_SPACE > AVAILABLE_FREE_SPACE);
+        lot.unparkCar(new Car("XYZ244"));
+        lot.unparkCar(new Car("ABC124"));
+        lot.unparkCar(new Car("ABC123"));
+        int SPACE_FREED = lot.getFreeSpace();
+        //then
+        Assert.assertTrue(SPACE_FREED > AVAILABLE_FREE_SPACE);
+    }
+
+    @Test(expected = ParkingLot.AttemptToUnparkUnavailableCarException.class)
+    public void itShouldNotUnparkACarWhichIsNoMoreParkedInTheLot() {
+        //given
+        ParkingLot lot = new ParkingLot(4);
+        lot.parkCar(new Car("XYZ244"));
+        lot.parkCar(new Car("ABC124"));
+        lot.parkCar(new Car("ABC123"));
+        lot.parkCar(new Car("ABC125"));
+        //when
+        lot.unparkCar(new Car("XYZ244"));
+        lot.unparkCar(new Car("ZZZ324"));
+        //then
+    }
 }
