@@ -24,9 +24,10 @@ public class ParkingLot {
 
     public void parkCar(Car car) {
         if (this.isFreeSpaceAvailable()) {
+            if (list.contains(car)) throw new DuplicateCarParkedException();
             list.add(car);
             freeSpace--;
-        }
+        } else throw new FreeSpaceExhaustedException();
     }
 
     public int getFreeSpace() {
@@ -34,5 +35,11 @@ public class ParkingLot {
     }
 
     protected class NullLotCreatedException extends RuntimeException {
+    }
+
+    protected class FreeSpaceExhaustedException extends RuntimeException {
+    }
+
+    protected class DuplicateCarParkedException extends RuntimeException {
     }
 }
